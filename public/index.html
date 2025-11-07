@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Irrigation Dashboard</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      color: #333;
+    }
+    h1 {
+      color: #2a7a5e;
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: white;
+      display: inline-block;
+      padding: 25px 40px;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .value {
+      font-size: 3rem;
+      margin-top: 10px;
+      color: #2c3e50;
+    }
+    .status {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 40px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌱 Smart Irrigation System</h1>
+  
+  <div class="card">
+    <p>Moisture Level:</p>
+    <div class="value" id="moisture">--</div>
+    <div class="status" id="status">Waiting...</div>
+  </div>
+
+  <footer>Auto Water Control Active</footer>
+
+  <script>
+    async function fetchData() {
+      const res = await fetch('/data');
+      const data = await res.json();
+      document.getElementById('moisture').textContent = data.moisture;
+      document.getElementById('status').textContent = data.status;
+    }
+
+    setInterval(fetchData, 5000);
+  </script>
+</body>
+</html>
